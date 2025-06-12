@@ -2,7 +2,7 @@
   <artifact type="jar" name="Test1:jar">
     <output-path>$PROJECT_DIR$/classes/artifacts/Test1_jar</output-path>
     <root id="archive" name="Test1.jar">
-      <element id="module-output" name="Test1" />
+      <element id="module-output" name="EHSAlarmChan" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/examples.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/json.jar" path-in-jar="/" />
       <element id="extracted-dir" path="$PROJECT_DIR$/lib/jna.jar" path-in-jar="/" />
