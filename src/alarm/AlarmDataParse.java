@@ -4,10 +4,9 @@ import CommonMethod.CommonUtil;
 import NetSDKDemo.HCNetSDK;
 import com.sun.jna.Pointer;
 
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.nio.ByteBuffer;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -19,6 +18,7 @@ import java.util.Date;
 public class AlarmDataParse {
 
     public static void alarmDataHandle(int lCommand, HCNetSDK.NET_DVR_ALARMER pAlarmer, Pointer pAlarmInfo, int dwBufLen, Pointer pUser) {
+        System.out.println("============================");
         System.out.println("报警事件类型： lCommand:" + Integer.toHexString(lCommand));
         String sTime;
         String MonitoringSiteID;
@@ -1315,22 +1315,25 @@ public class AlarmDataParse {
                 Pointer pAIOPVideo = struAIOPVideo.getPointer();
                 pAIOPVideo.write(0, pAlarmInfo.getByteArray(0, struAIOPVideo.size()), 0, struAIOPVideo.size());
                 struAIOPVideo.read();
-                System.out.println("视频任务ID" + new String(struAIOPVideo.szTaskID));
+                System.out.println("视频任务ID：" + new String(struAIOPVideo.szTaskID));
+                String cameraIP = new String(pAlarmer.sDeviceIP).trim();
+                System.out.println("摄像头IP：" + cameraIP);
+                String strTime = String.format("%04d", struAIOPVideo.struTime.wYear) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wMonth) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wDay) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wHour) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wMinute) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wSecond);
+                System.out.println("报警时间：" + strTime);
                 System.out.println("通道号：" + struAIOPVideo.dwChannel);
                 System.out.println("检测模型包ID" + new String(struAIOPVideo.szMPID));
-                String strTime = String.format("%04d", struAIOPVideo.struTime.wYear) +
-                        String.format("%02d", struAIOPVideo.struTime.wMonth) +
-                        String.format("%02d", struAIOPVideo.struTime.wDay) +
-                        String.format("%02d", struAIOPVideo.struTime.wHour) +
-                        String.format("%02d", struAIOPVideo.struTime.wMinute) +
-                        String.format("%02d", struAIOPVideo.struTime.wSecond) +
-                        String.format("%03d", struAIOPVideo.struTime.wMilliSec);
                 //AIOPData数据
+                String jsonFileName = "./pic/" + new String(pAlarmer.sDeviceIP).trim() + "_" + strTime + "_VideoData.json";
+                System.out.println("JSON文件保存在：" + jsonFileName);
                 if (struAIOPVideo.dwAIOPDataSize > 0) {
                     FileOutputStream fout;
                     try {
-                        String filename = "./pic/" + new String(pAlarmer.sDeviceIP).trim() +
-                                "_" + strTime + "_VideoData.json";
+                        String filename = jsonFileName;
                         fout = new FileOutputStream(filename);
                         //将字节写入文件
                         long offset = 0;
@@ -1349,11 +1352,12 @@ public class AlarmDataParse {
                     }
                 }
                 //图片数据保存
+                String picFileName =  "./pic/" + new String(pAlarmer.sDeviceIP).trim() + "_" + strTime + "_VideoPic.jpg";
+                System.out.println("图片保存在：" + picFileName);
                 if (struAIOPVideo.dwPictureSize > 0) {
                     FileOutputStream fout;
                     try {
-                        String filename = "./pic/" + new String(pAlarmer.sDeviceIP).trim() +
-                                "_" + strTime + "_VideoPic.jpg";
+                        String filename = picFileName;
                         fout = new FileOutputStream(filename);
                         //将字节写入文件
                         long offset = 0;
@@ -1371,6 +1375,9 @@ public class AlarmDataParse {
                         e.printStackTrace();
                     }
                 }
+                System.out.println("正在将报警信息发送至EHS...");
+                handleAlarmDataToEHS(strTime, cameraIP, jsonFileName, picFileName);
+                System.out.println("============================");
                 break;
             case HCNetSDK.COMM_UPLOAD_AIOP_PICTURE: //AI开放平台接入图片检测报警信息
                 System.out.println("AI开放平台接入图片检测报警上传");
@@ -1548,7 +1555,81 @@ public class AlarmDataParse {
         }
     }
 
-    public static void handleAlarmDataToEHS(int lCommand, HCNetSDK.NET_DVR_ALARMER pAlarmer, Pointer pAlarmInfo, int dwBufLen, Pointer pUser){
-        return;
+    public static void handleAlarmDataToEHS(String alarmTime, String cameraIP, String behavior, String picFilePath) {
+        String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
+        String LINE_FEED = "\r\n";
+        String charset = "UTF-8";
+        String requestURL = "http://localhost/dev-api/behaviorRecognition/alarmManagement/upload";//TODO 后续要替换成线上的EHS接口
+        HttpURLConnection httpConn = null;
+        OutputStream outputStream = null;
+        PrintWriter writer = null;
+        try {
+            // 1. 打开连接
+            URL url = new URL(requestURL);
+            httpConn = (HttpURLConnection) url.openConnection();
+            httpConn.setUseCaches(false);
+            httpConn.setDoOutput(true); // indicates POST method
+            httpConn.setDoInput(true);
+            httpConn.setRequestMethod("POST");
+            httpConn.setRequestProperty("Content-Type", "multipart/form-data; boundary=" + boundary);
+
+            outputStream = httpConn.getOutputStream();
+            writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
+
+            // 2. 添加文本字段
+            String[] fieldNames = {"alarmTime", "cameraIP", "behavior"};
+            String[] fieldValues = {alarmTime, cameraIP, behavior};
+            for (int i = 0; i < fieldNames.length; i++) {
+                writer.append("--" + boundary).append(LINE_FEED);
+                writer.append("Content-Disposition: form-data; name=\"" + fieldNames[i] + "\"").append(LINE_FEED);
+                writer.append("Content-Type: text/plain; charset=" + charset).append(LINE_FEED);
+                writer.append(LINE_FEED);
+                writer.append(fieldValues[i]).append(LINE_FEED);
+                writer.flush();
+            }
+
+            // 3. 添加文件字段
+            File file = new File(picFilePath);
+            String fileName = file.getName();
+            writer.append("--" + boundary).append(LINE_FEED);
+            writer.append("Content-Disposition: form-data; name=\"picture\"; filename=\"" + fileName + "\"").append(LINE_FEED);
+            writer.append("Content-Type: application/octet-stream").append(LINE_FEED);
+            writer.append(LINE_FEED);
+            writer.flush();
+            // 写入文件内容
+            FileInputStream inputStream = new FileInputStream(file);
+            byte[] buffer = new byte[4096];
+            int bytesRead = -1;
+            while ((bytesRead = inputStream.read(buffer)) != -1) {
+                outputStream.write(buffer, 0, bytesRead);
+            }
+            outputStream.flush();
+            inputStream.close();
+            writer.append(LINE_FEED);
+            writer.flush();
+
+            // 4. 结束multipart
+            writer.append("--" + boundary + "--").append(LINE_FEED);
+            writer.close();
+
+            // 5. 读取响应
+            int status = httpConn.getResponseCode();
+            if (status == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(httpConn.getInputStream()));
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    System.out.println(line);
+                }
+                reader.close();
+            } else {
+                System.err.println("POST请求失败，响应码: " + status);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (httpConn != null) {
+                httpConn.disconnect();
+            }
+        }
     }
 }
