@@ -1,0 +1,80 @@
+{
+	"errorcode":	0,
+	"version":	"2.1.0",
+	"width":	"1920",
+	"height":	"1104",
+	"frameNum":	15043024,
+	"timeStamp":	602244220,
+	"aitype":	1005,
+	"targets":	[{
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023092201008rentidet00",
+				"id":	27099,
+				"type":	1,
+				"confidence":	437,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.747656",
+					"y":	"0.130612",
+					"w":	"0.024219",
+					"h":	"0.129293"
+				}
+			},
+			"properties":	[{
+					"modelID":	"00022022122101008fangyifucls0000",
+					"classify":	{
+						"attrType":	0,
+						"attrValue":	0,
+						"attrConf":	999
+					}
+				}]
+		}],
+	"events":	{
+		"alertInfo":	[{
+				"nodeID":	0,
+				"unionTargets":	{
+					"id":	0,
+					"type":	0,
+					"confidence":	0,
+					"region":	{
+						"rect":	{
+							"x":	"0.012500",
+							"y":	"0.105545",
+							"w":	"0.968750",
+							"h":	"0.839083"
+						}
+					},
+					"childTargets":	[]
+				},
+				"ruleInfo":	{
+					"ruleID":	1,
+					"triggerType":	1073758209,
+					"movDir":	0,
+					"region":	{
+						"polygon":	[{
+								"x":	"0.195000",
+								"y":	"0.107783"
+							}, {
+								"x":	"0.023000",
+								"y":	"0.203913"
+							}, {
+								"x":	"0.013000",
+								"y":	"0.943826"
+							}, {
+								"x":	"0.983000",
+								"y":	"0.945768"
+							}, {
+								"x":	"0.970000",
+								"y":	"0.128174"
+							}]
+					},
+					"ruleName":	"未穿工服"
+				}
+			}]
+	},
+	"trainInfo":	[{
+			"trainModelId":	"9"
+		}]
+}

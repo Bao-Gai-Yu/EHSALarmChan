@@ -1,0 +1,106 @@
+{
+	"errorcode":	0,
+	"version":	"2.1.0",
+	"width":	"1920",
+	"height":	"1104",
+	"frameNum":	15052968,
+	"timeStamp":	602014643,
+	"aitype":	1005,
+	"targets":	[{
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023082801008toujiansbsdet00",
+				"id":	63038,
+				"type":	2,
+				"confidence":	892,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.275781",
+					"y":	"0.244073",
+					"w":	"0.019531",
+					"h":	"0.050134"
+				}
+			}
+		}, {
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023082801008toujiansbsdet00",
+				"id":	63041,
+				"type":	1,
+				"confidence":	665,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.278906",
+					"y":	"0.246712",
+					"w":	"0.014844",
+					"h":	"0.025067"
+				}
+			},
+			"properties":	[{
+					"modelID":	"00022023040601008anquanmaomacls0",
+					"classify":	{
+						"attrType":	0,
+						"attrValue":	0,
+						"attrConf":	974
+					}
+				}, {
+					"modelID":	"00022023040601008anquanmaomacls0",
+					"classify":	{
+						"attrType":	1,
+						"attrValue":	5,
+						"attrConf":	954
+					}
+				}]
+		}],
+	"events":	{
+		"alertInfo":	[{
+				"nodeID":	0,
+				"target":	{
+					"modelID":	"00012023082801008toujiansbsdet00",
+					"id":	63041,
+					"type":	1,
+					"confidence":	974,
+					"region":	{
+						"rect":	{
+							"x":	"0.278906",
+							"y":	"0.246712",
+							"w":	"0.014844",
+							"h":	"0.025067"
+						}
+					}
+				},
+				"ruleInfo":	{
+					"ruleID":	1,
+					"triggerType":	1073758209,
+					"movDir":	0,
+					"region":	{
+						"polygon":	[{
+								"x":	"0.215000",
+								"y":	"0.178667"
+							}, {
+								"x":	"0.048000",
+								"y":	"0.324319"
+							}, {
+								"x":	"0.015000",
+								"y":	"0.915667"
+							}, {
+								"x":	"0.973000",
+								"y":	"0.928290"
+							}, {
+								"x":	"0.948000",
+								"y":	"0.468029"
+							}, {
+								"x":	"0.735000",
+								"y":	"0.166043"
+							}]
+					},
+					"ruleName":	"未戴安全帽"
+				}
+			}]
+	},
+	"trainInfo":	[{
+			"trainModelId":	"10"
+		}]
+}

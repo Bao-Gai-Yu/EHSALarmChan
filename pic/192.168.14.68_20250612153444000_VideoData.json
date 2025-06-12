@@ -1,0 +1,153 @@
+{
+	"errorcode":	0,
+	"version":	"2.1.0",
+	"width":	"1920",
+	"height":	"1104",
+	"frameNum":	15047960,
+	"timeStamp":	601814370,
+	"aitype":	1005,
+	"targets":	[{
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023082801008toujiansbsdet00",
+				"id":	63008,
+				"type":	2,
+				"confidence":	998,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.523438",
+					"y":	"0.348299",
+					"w":	"0.035156",
+					"h":	"0.073882"
+				}
+			}
+		}, {
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023082801008toujiansbsdet00",
+				"id":	63009,
+				"type":	2,
+				"confidence":	962,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.470313",
+					"y":	"0.364130",
+					"w":	"0.028906",
+					"h":	"0.064646"
+				}
+			}
+		}, {
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023082801008toujiansbsdet00",
+				"id":	63010,
+				"type":	1,
+				"confidence":	899,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.472656",
+					"y":	"0.353576",
+					"w":	"0.024219",
+					"h":	"0.043537"
+				}
+			},
+			"properties":	[{
+					"modelID":	"00022023040601008anquanmaomacls0",
+					"classify":	{
+						"attrType":	0,
+						"attrValue":	0,
+						"attrConf":	928
+					}
+				}, {
+					"modelID":	"00022023040601008anquanmaomacls0",
+					"classify":	{
+						"attrType":	1,
+						"attrValue":	5,
+						"attrConf":	872
+					}
+				}]
+		}, {
+			"nodeID":	0,
+			"obj":	{
+				"modelID":	"00012023082801008toujiansbsdet00",
+				"id":	63013,
+				"type":	1,
+				"confidence":	992,
+				"valid":	1,
+				"visible":	1,
+				"rect":	{
+					"x":	"0.525781",
+					"y":	"0.341702",
+					"w":	"0.030469",
+					"h":	"0.044857"
+				}
+			},
+			"properties":	[{
+					"modelID":	"00022023040601008anquanmaomacls0",
+					"classify":	{
+						"attrType":	0,
+						"attrValue":	0,
+						"attrConf":	802
+					}
+				}, {
+					"modelID":	"00022023040601008anquanmaomacls0",
+					"classify":	{
+						"attrType":	1,
+						"attrValue":	5,
+						"attrConf":	665
+					}
+				}]
+		}],
+	"events":	{
+		"alertInfo":	[{
+				"nodeID":	0,
+				"target":	{
+					"modelID":	"00012023082801008toujiansbsdet00",
+					"id":	63013,
+					"type":	1,
+					"confidence":	802,
+					"region":	{
+						"rect":	{
+							"x":	"0.525781",
+							"y":	"0.341702",
+							"w":	"0.030469",
+							"h":	"0.044857"
+						}
+					}
+				},
+				"ruleInfo":	{
+					"ruleID":	1,
+					"triggerType":	1073758209,
+					"movDir":	0,
+					"region":	{
+						"polygon":	[{
+								"x":	"0.215000",
+								"y":	"0.178667"
+							}, {
+								"x":	"0.048000",
+								"y":	"0.324319"
+							}, {
+								"x":	"0.015000",
+								"y":	"0.915667"
+							}, {
+								"x":	"0.973000",
+								"y":	"0.928290"
+							}, {
+								"x":	"0.948000",
+								"y":	"0.468029"
+							}, {
+								"x":	"0.735000",
+								"y":	"0.166043"
+							}]
+					},
+					"ruleName":	"未戴安全帽"
+				}
+			}]
+	},
+	"trainInfo":	[{
+			"trainModelId":	"10"
+		}]
+}
