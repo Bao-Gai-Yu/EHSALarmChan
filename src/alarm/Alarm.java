@@ -128,6 +128,10 @@ public class Alarm {
         System.out.println("正在对192.168.14.70的摄像头进行布防...");
         lAlarmHandle70=Alarm.setAlarmChan(lAlarmHandle70, lUserID70);//报警布防
 
+
+//        测试转发到EHS的功能是否正常
+//        AlarmDataParse.handleAlarmDataToEHS("2025-06-12 17:10:20", "192.168.14.68", "未戴安全帽","./pic/192.168.14.68_2025-06-12-17-10-20-000_VideoPic.jpg");
+
         for (boolean exit = false; !exit; ) {
             System.out.println("输入quit退出程序：");
             Scanner input = new Scanner(System.in);

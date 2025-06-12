@@ -1,4 +1,4 @@
-[2025-06-13 00:41:48.457][DBG] CCoreGlobalCtrlBase::LoadDSo, HPR_LoadDSo Succ, Path[D:/Desktop/AlarmDemo/lib/zlib1.dll], hHandleRet[1342439424]
-[2025-06-13 00:41:48.457][INF] The COM:HCCoreBase ver is 6.1.4.15, 2020_03_05. Async:1.
-[2025-06-13 00:41:48.457][INF] The COM:Core ver is 6.1.9.48, 2023_04_10. Async:1.
-[2025-06-13 00:41:48.457][INF] This HCNetSDK ver is 6.1.9.48 Ver 2023_04_10.
+[2025-06-13 01:34:55.714][DBG] CCoreGlobalCtrlBase::LoadDSo, HPR_LoadDSo Succ, Path[D:/Desktop/AlarmDemo/lib/zlib1.dll], hHandleRet[1342439424]
+[2025-06-13 01:34:55.714][INF] The COM:HCCoreBase ver is 6.1.4.15, 2020_03_05. Async:1.
+[2025-06-13 01:34:55.714][INF] The COM:Core ver is 6.1.9.48, 2023_04_10. Async:1.
+[2025-06-13 01:34:55.714][INF] This HCNetSDK ver is 6.1.9.48 Ver 2023_04_10.
