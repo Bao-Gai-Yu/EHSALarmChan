@@ -1324,9 +1324,9 @@ public class AlarmDataParse {
                 System.out.println("摄像头IP：" + cameraIP);
                 String strTime = String.format("%04d", struAIOPVideo.struTime.wYear) + "-"+
                         String.format("%02d", struAIOPVideo.struTime.wMonth) + "-"+
-                        String.format("%02d", struAIOPVideo.struTime.wDay) + " "+
-                        String.format("%02d", struAIOPVideo.struTime.wHour) + ":"+
-                        String.format("%02d", struAIOPVideo.struTime.wMinute) + ":"+
+                        String.format("%02d", struAIOPVideo.struTime.wDay) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wHour) + "-"+
+                        String.format("%02d", struAIOPVideo.struTime.wMinute) + "-"+
                         String.format("%02d", struAIOPVideo.struTime.wSecond);
                 System.out.println("报警时间：" + strTime);
                 System.out.println("通道号：" + struAIOPVideo.dwChannel);
@@ -1587,7 +1587,9 @@ public class AlarmDataParse {
             Matcher matcher = pattern.matcher(content);
             if(matcher.find())
                 behavior = matcher.group(1);
-            System.out.println(behavior);
+            System.out.println("alarmTime: " + alarmTime);
+            System.out.println("cameraIP: " + cameraIP);
+            System.out.println("behavior: " + behavior);
 
             // 2. 添加文本字段
             String[] fieldNames = {"alarmTime", "cameraIP", "behavior"};
