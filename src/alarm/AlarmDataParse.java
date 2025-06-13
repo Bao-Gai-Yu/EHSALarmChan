@@ -8,8 +8,12 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.ByteBuffer;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * @author jiangxin
@@ -1555,7 +1559,7 @@ public class AlarmDataParse {
         }
     }
 
-    public static void handleAlarmDataToEHS(String alarmTime, String cameraIP, String behavior, String picFilePath) {
+    public static void handleAlarmDataToEHS(String alarmTime, String cameraIP, String jsonFilePath, String picFilePath) {
         String boundary = "----WebKitFormBoundary" + System.currentTimeMillis();
         String LINE_FEED = "\r\n";
         String charset = "UTF-8";
@@ -1575,6 +1579,15 @@ public class AlarmDataParse {
 
             outputStream = httpConn.getOutputStream();
             writer = new PrintWriter(new OutputStreamWriter(outputStream, charset), true);
+
+            String content = new String(Files.readAllBytes(Paths.get(jsonFilePath)));
+            String behavior = "";
+            String regex = "\"ruleName\":\\s*\"([^\"]+)\"";
+            Pattern pattern = Pattern.compile(regex);
+            Matcher matcher = pattern.matcher(content);
+            if(matcher.find())
+                behavior = matcher.group(1);
+            System.out.println(behavior);
 
             // 2. 添加文本字段
             String[] fieldNames = {"alarmTime", "cameraIP", "behavior"};

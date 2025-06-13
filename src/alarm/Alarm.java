@@ -130,7 +130,7 @@ public class Alarm {
 
 
 //        测试转发到EHS的功能是否正常
-//        AlarmDataParse.handleAlarmDataToEHS("2025-06-12 17:10:20", "192.168.14.68", "未戴安全帽","./pic/192.168.14.68_2025-06-12-17-10-20-000_VideoPic.jpg");
+//        AlarmDataParse.handleAlarmDataToEHS("2025-06-12 17:10:20", "192.168.14.68", "./pic/192.168.14.66_2025-06-12-15-59-51-000_VideoData.json","./pic/192.168.14.66_2025-06-12-15-59-51-000_VideoPic.jpg");
 
         for (boolean exit = false; !exit; ) {
             System.out.println("输入quit退出程序：");
